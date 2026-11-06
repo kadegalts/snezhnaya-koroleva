@@ -17,7 +17,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C12.8 8.5 15.5 11.2 22 12C15.5 12.8 12.8 15.5 12 22C11.2 15.5 8.5 12.8 2 12C8.5 11.2 11.2 8.5 12 2Z' fill='%23E8C97A'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="fonts/fonts.css">
-<link rel="stylesheet" href="style.css?v=20261106q">
+<link rel="stylesheet" href="style.css?v=20261107g">
 </head>
 <body>
 
@@ -63,7 +63,11 @@
   <!-- Вступление: занавес → дворец → ночное небо → сцены шоу -->
   <section class="journey" aria-label="Вступление: вход в ледяной дворец">
     <div class="stage">
-      <img class="scene" src="img/scene.webp" alt="Ледяной дворец на берегу замёрзшего озера, ночь">
+      <!-- На вертикальном экране телефона — своя картинка 864×1536 (чёткая), на остальных — широкая -->
+      <picture>
+        <source media="(max-aspect-ratio: 3/4)" srcset="img/scene-mobile.jpg">
+        <img class="scene" src="img/scene.webp" alt="Ледяной дворец на берегу замёрзшего озера, ночь">
+      </picture>
       <div class="veil"></div>
       <div class="scene-title" aria-hidden="true">
         <p class="over">Новогоднее шоу · 6+</p>
@@ -86,23 +90,6 @@
       </div>
       <a class="skip" href="#after">Сразу к сценам ↓</a>
       <span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9.5 12 15.5 18 9.5"/></svg></span>
-    </div>
-  </section>
-
-  <!-- Сцены шоу: лента фото едет справа налево при прокрутке -->
-  <section class="stage-reel" id="after" aria-label="Сцены из шоу">
-    <div class="reel__pin">
-      <h2 class="sr-only">Сцены шоу</h2>
-      <div class="reel__track">
-        <figure class="shot" style="--x:0; --y:75; --w:581; --h:333"><img src="img/stage/s2.webp" alt="Воздушная гимнастка на полотнах над сценой — метель" loading="lazy"><figcaption>Танец в метели</figcaption></figure>
-        <figure class="shot" style="--x:89; --y:500; --w:202; --h:262"><img src="img/stage/s1.webp" alt="Снежная королева на ледяном подиуме в луче прожектора" loading="lazy"><figcaption>Холод в луче света</figcaption></figure>
-        <figure class="shot" style="--x:732; --y:267; --w:505; --h:501"><img src="img/stage/s6.webp" alt="Крупный план: грим и ледяная корона Снежной королевы" loading="lazy"><figcaption>Лицо зимы</figcaption></figure>
-        <figure class="shot" style="--x:1357; --y:36; --w:467; --h:268"><img src="img/stage/s5.webp" alt="Кай один на ледяном полу складывает льдинки" loading="lazy"><figcaption>Ледяная мозаика</figcaption></figure>
-        <figure class="shot" style="--x:1585; --y:578; --w:214; --h:260"><img src="img/stage/s3.webp" alt="Герда с красной розой в руках" loading="lazy"><figcaption>Роза, которая помнит лето</figcaption></figure>
-        <figure class="shot" style="--x:1966; --y:475; --w:539; --h:308"><img src="img/stage/s4.webp" alt="Акробат-олень несёт Герду под северным сиянием" loading="lazy"><figcaption>Дорога на север</figcaption></figure>
-        <figure class="shot" style="--x:2189; --y:64; --w:186; --h:230"><img src="img/stage/s8.webp" alt="Финал: Герда обнимает Кая, у их ног роза" loading="lazy"><figcaption>Весна в конце пути</figcaption></figure>
-        <figure class="shot" style="--x:2590; --y:326; --w:463; --h:259"><img src="img/stage/s7.webp" alt="Кордебалет «снежинки» в прыжке" loading="lazy"><figcaption>Снег, который танцует</figcaption></figure>
-      </div>
     </div>
   </section>
 
@@ -130,6 +117,23 @@
           <p>В ледяном чертоге Кай складывал из льдинок слово «Вечность». Герда обняла его — и её слёзы растопили лёд в его сердце.</p>
         </div>
         <p class="tale__sign">— Ганс Христиан Андерсен, 1844</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Сцены шоу: лента фото едет справа налево при прокрутке -->
+  <section class="stage-reel" id="after" aria-label="Сцены из шоу">
+    <div class="reel__pin">
+      <h2 class="sr-only">Сцены шоу</h2>
+      <div class="reel__track">
+        <figure class="shot" style="--x:0; --y:75; --w:581; --h:333"><img src="img/stage/s2.webp" alt="Воздушная гимнастка на полотнах над сценой — метель" loading="lazy"><figcaption>Танец в метели</figcaption></figure>
+        <figure class="shot" style="--x:89; --y:500; --w:202; --h:262"><img src="img/stage/s1.webp" alt="Снежная королева на ледяном подиуме в луче прожектора" loading="lazy"><figcaption>Холод в луче света</figcaption></figure>
+        <figure class="shot" style="--x:732; --y:267; --w:505; --h:501"><img src="img/stage/s6.webp" alt="Крупный план: грим и ледяная корона Снежной королевы" loading="lazy"><figcaption>Лицо зимы</figcaption></figure>
+        <figure class="shot" style="--x:1357; --y:36; --w:467; --h:268"><img src="img/stage/s5.webp" alt="Кай один на ледяном полу складывает льдинки" loading="lazy"><figcaption>Ледяная мозаика</figcaption></figure>
+        <figure class="shot" style="--x:1585; --y:578; --w:214; --h:260"><img src="img/stage/s3.webp" alt="Герда с красной розой в руках" loading="lazy"><figcaption>Роза, которая помнит лето</figcaption></figure>
+        <figure class="shot" style="--x:1966; --y:475; --w:539; --h:308"><img src="img/stage/s4.webp" alt="Акробат-олень несёт Герду под северным сиянием" loading="lazy"><figcaption>Дорога на север</figcaption></figure>
+        <figure class="shot" style="--x:2189; --y:64; --w:186; --h:230"><img src="img/stage/s8.webp" alt="Финал: Герда обнимает Кая, у их ног роза" loading="lazy"><figcaption>Весна в конце пути</figcaption></figure>
+        <figure class="shot" style="--x:2590; --y:326; --w:463; --h:259"><img src="img/stage/s7.webp" alt="Кордебалет «снежинки» в прыжке" loading="lazy"><figcaption>Снег, который танцует</figcaption></figure>
       </div>
     </div>
   </section>
@@ -360,6 +364,6 @@
 <script src="vendor/gsap.min.js"></script>
 <script src="vendor/ScrollTrigger.min.js"></script>
 <script src="vendor/lenis.min.js"></script>
-<script src="main.js?v=20261106q"></script>
+<script src="main.js?v=20261107g"></script>
 </body>
 </html>

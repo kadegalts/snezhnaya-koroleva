@@ -613,3 +613,84 @@ a { color: inherit; text-decoration: none; }
 /* «Сразу к сценам» заметнее (правка по критике): крупнее, ярче, тень для читаемости на занавесе, зона нажатия 44 px */
 .skip { display: inline-flex; align-items: center; min-height: 44px; bottom: 22px; font-size: 16px; opacity: .92; color: var(--palette-snow); text-shadow: 0 1px 10px rgba(10, 20, 40, .9); }
 .skip:hover { opacity: 1; }
+
+/* Вертикальная картинка сцены для телефона: дворец по центру-справа, небо с местом под название слева */
+@media (max-aspect-ratio: 3/4) {
+  .scene { object-position: 50% 45%; }
+  /* Название — в пустом небе слева, над дворцом, а не на его основании */
+  .scene-title { top: 31%; }
+  .veil { background: radial-gradient(ellipse 75% 32% at 30% 31%, rgba(14,26,51,.8), rgba(14,26,51,.4) 50%, transparent 78%); }
+}
+
+/* ---------- Телефон: «Сцены шоу» — обычный список фото без анимации (её правка) ---------- */
+@media (max-width: 900px) {
+  .stage-reel { padding: 30vh 16px 72px; }
+  .stage-reel .sr-only {
+    position: static; width: auto; height: auto; overflow: visible; clip: auto; white-space: normal;
+    font: 400 44px/1.1 Prata, serif; letter-spacing: .03em; color: var(--palette-snow); margin-bottom: 28px;
+  }
+  .reel__pin { display: block; height: auto; min-height: 0; overflow: visible; }
+  .reel__track { display: flex; flex-direction: column; gap: 44px; width: auto; height: auto; transform: none !important; }
+  .shot { position: relative; left: auto; top: auto; width: 100%; height: auto; aspect-ratio: var(--w) / var(--h); }
+  .shot img { height: 100%; }
+  /* Вертикальные фото уже и поочерёдно у правого и левого края — ритм вместо однообразной колонки */
+  .shot:nth-child(2), .shot:nth-child(5), .shot:nth-child(7) { width: 72%; }
+  .shot:nth-child(2), .shot:nth-child(7) { align-self: flex-end; }
+  .shot:nth-child(5) { align-self: flex-start; }
+  .shot figcaption { position: static; margin-top: 10px; text-align: right; font-size: 18px; white-space: normal; }
+}
+
+/* ---------- Телефон: «Сцены шоу» — её расстановка из Фигмы (кадр «Сцены шоу (телефон 390) — РАССТАВЬ ФОТО ЗДЕСЬ»).
+   Координаты в пикселях макета 390 px, масштабируются под ширину экрана: 1 единица = 100vw / 390.
+   Начало отсчёта — верх заголовка (в макете y = 88). Анимации нет ---------- */
+@media (max-width: 900px) {
+  .stage-reel { --mu: calc(100vw / 390); padding: 30vh 0 0; }
+  .stage-reel .sr-only { position: absolute; left: calc(16 * var(--mu)); top: 0; margin: 0; font-size: calc(44 * var(--mu)); line-height: 1.36; }
+  .reel__track { display: block; position: relative; width: 100%; height: calc(1770 * var(--mu)); }
+  .stage-reel .shot { position: absolute; left: calc(var(--mx) * var(--mu)); top: calc(var(--my) * var(--mu)); width: calc(var(--mw) * var(--mu)); height: calc(var(--mh) * var(--mu)); aspect-ratio: auto; align-self: auto; }
+  .shot img { width: 100%; height: 100%; object-fit: cover; }
+  .shot figcaption { position: absolute; left: calc(var(--cx) * var(--mu)); top: calc(var(--cy) * var(--mu)); right: auto; margin: 0; font-size: calc(18 * var(--mu)); white-space: nowrap; text-align: left; }
+  /* фото: x, y, ширина, высота; подпись: смещение от левого верхнего угла фото */
+  .shot:nth-child(1) { --mx: 24;  --my: 76;   --mw: 293; --mh: 184; --cx: 237; --cy: 184; } /* Танец в метели */
+  .shot:nth-child(2) { --mx: 26;  --my: 486;  --mw: 169; --mh: 206; --cx: 103; --cy: 210; } /* Холод в луче света */
+  .shot:nth-child(3) { --mx: 214; --my: 305;  --mw: 140; --mh: 139; --cx: -38; --cy: 135; } /* Лицо зимы */
+  .shot:nth-child(4) { --mx: 29;  --my: 1004; --mw: 173; --mh: 108; --cx: -6;  --cy: 108; } /* Ледяная мозаика */
+  .shot:nth-child(5) { --mx: 230; --my: 1058; --mw: 124; --mh: 144; --cx: -47; --cy: 144; } /* Роза, которая помнит лето */
+  .shot:nth-child(6) { --mx: 29;  --my: 742;  --mw: 328; --mh: 201; --cx: 235; --cy: 200; } /* Дорога на север */
+  .shot:nth-child(7) { --mx: 29;  --my: 1247; --mw: 218; --mh: 177; --cx: 130; --cy: 177; } /* Весна в конце пути */
+  .shot:nth-child(8) { --mx: 29;  --my: 1472; --mw: 328; --mh: 195; --cx: 171; --cy: 195; } /* Снег, который танцует */
+}
+
+/* Телефон: список ниже — к моменту, когда первое фото доходит до середины экрана, вступление уже растворилось */
+@media (max-width: 900px) {
+  .stage-reel { padding-top: 120vh; }
+  .no-motion .stage-reel { padding-top: 88px; }
+}
+
+/* ---------- Порядок блоков (её проба): «О спектакле» сразу после вступления, «Сцены шоу» — после него ---------- */
+.tale { margin-top: -100vh; }
+.stage-reel { margin-top: 0; }
+.no-motion .tale, .no-motion .stage-reel { margin-top: 0; }
+@media (max-width: 900px) {
+  /* Телефон: список фото выше и поверх соседних слоёв */
+  .stage-reel { padding-top: 88px; z-index: 3; }
+}
+
+/* Компьютер: фото ленты стартуют ближе к краю экрана — въезжают сразу, без долгой паузы */
+@media (min-width: 901px) {
+  .reel__track { width: calc(55vw + 3093 * var(--u) + 8vw); }
+  .shot { left: calc(55vw + var(--x) * var(--u)); }
+}
+
+/* ---------- «Для родителей»: чистая обводка программки (её правка) ----------
+   Хвост буквы «р» из фонового «антракт» упирался в верхнюю линию рамки, а звёзды неба ложились на сам контур.
+   Фоновое слово поднято выше рамки, программка лежит над всем фоном, вокруг контура мягкое тёмное «поле», чтобы ничего не касалось золота */
+.parents__ghost { top: -78px; z-index: 0; }
+.parents__over, .parents__title { z-index: 1; }
+.parents__card { z-index: 2; box-shadow: 0 0 0 1px rgba(232, 201, 122, .0), 0 0 28px 10px rgba(10, 20, 40, .9); }
+@media (max-width: 900px) {
+  .parents__ghost { top: -46px; }
+}
+
+/* Искры за санями убраны (её правка) */
+.tale__trail { display: none; }

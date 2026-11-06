@@ -180,7 +180,7 @@ if (reduce || !window.gsap || !window.ScrollTrigger) {
     .to('.curtain--l', { x: () => -innerWidth * 0.8, duration: 0.8, ease: 'power1.in' }, 1.0)
     .to('.curtain--r', { x: () => innerWidth * 0.8, duration: 0.8, ease: 'power1.in' }, 1.0)
     .to('.valance', { yPercent: -110, duration: 0.8, ease: 'power1.in' }, 1.0)
-    .to(['.veil', '.scene-title'], { autoAlpha: 0, duration: 0.45 }, 1.1)
+    .to(['.veil', '.scene-title'], { autoAlpha: 0, duration: 0.4 }, 1.9) // название держится на сцене и уходит только с переходом к ленте (её правка)
 
   // 1.2–2.6: снизу поднимается ночное небо мягким краем и постепенно закрывает дворец,
   // дворец при этом чуть приподнимается — небо будто наплывает
@@ -199,9 +199,34 @@ if (reduce || !window.gsap || !window.ScrollTrigger) {
   // Лента подложена под вступление так, что закрепляется ровно когда оно начинает таять
   const reelSec = $('.stage-reel');
   const fadePx = () => FADE / END * PIN * innerHeight;
-  const setOverlap = () => { reelSec.style.marginTop = -(innerHeight + fadePx()) + 'px'; };
+  // Порядок блоков (её проба): вступление → «О спектакле» → «Сцены шоу». Под растворяющееся вступление подложен «О спектакле»:
+  // он доходит до верха экрана ровно когда вступление закончилось; лента идёт следом без нахлёста
+  const taleSec = $('.tale');
+  // На компьютере лента наезжает на уходящую историю на полэкрана — без пустого тёмного отрезка между ними (её правка)
+  const setOverlap = () => { taleSec.style.marginTop = -innerHeight + 'px'; reelSec.style.marginTop = (innerWidth > 900 ? -innerHeight * 0.55 : 0) + 'px'; };
   setOverlap();
   ScrollTrigger.addEventListener('refreshInit', setOverlap);
+
+  // ---------- О спектакле: разгорается луна, справа выезжают тёмные сани, перед луной светлеют, проступает история ----------
+  const sleigh = $('.tale__sleigh');
+  const taleTl = gsap.timeline({
+    defaults: { ease: 'none' },
+    scrollTrigger: {
+      trigger: '.tale__pin', start: 'top top', end: '+=200%', pin: true, scrub: lenis ? true : 0.6, anticipatePin: 1,
+      // искры за санями убраны (её правка «блёстки от коня убери»)
+    },
+  });
+    // Полёт по дуге: по горизонтали ровно, по вертикали с замедлением — сани «садятся» на место перед луной
+  taleTl.fromTo(sleigh, { xPercent: 105 }, { xPercent: 0, duration: 1.5, ease: 'power2.out' }, 0)
+    .fromTo(sleigh, { yPercent: 16, rotation: -6 }, { yPercent: 0, rotation: 0, duration: 1.5, ease: 'sine.out' }, 0)
+    .fromTo('.tale__shade', { opacity: 1 }, { opacity: 0, duration: 0.9, ease: 'power1.inOut' }, 0.7)
+    .fromTo(['.tale__over', '.tale__title'], { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.4, stagger: 0.1 }, 0.9)
+    .fromTo('.tale__story p', { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.3, stagger: 0.18 }, 1.3)
+    .fromTo('.tale__sign', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, 2.0)
+    .to({}, { duration: 0.4 });
+  // На телефоне лента — обычный список без анимации (её правка); анимация ленты только на широком экране
+  // Создаётся после «О спектакле» — в порядке блоков на странице, чтобы все расчёты прокрутки шли сверху вниз
+  gsap.matchMedia().add('(min-width: 901px)', () => {
   const reelTl = gsap.timeline({
     defaults: { ease: 'none' },
     scrollTrigger: {
@@ -214,28 +239,11 @@ if (reduce || !window.gsap || !window.ScrollTrigger) {
   // Как на landonorris.com: коллаж выплывает из правого нижнего угла — сначала одновременно поднимается и едет влево,
   // потом, встав на свою высоту, едет только влево
     .fromTo(track, { y: () => innerHeight * 0.7 }, { y: 0, duration: () => innerHeight * 0.9, ease: 'power2.out' }, 0);
-
-  // ---------- О спектакле: разгорается луна, справа выезжают тёмные сани, перед луной светлеют, проступает история ----------
-  const sleigh = $('.tale__sleigh');
-  const taleTl = gsap.timeline({
-    defaults: { ease: 'none' },
-    scrollTrigger: {
-      trigger: '.tale__pin', start: 'top top', end: '+=200%', pin: true, scrub: lenis ? true : 0.6, anticipatePin: 1,
-      onToggle: s => trail.active(s.isActive),
-    },
   });
-    // Полёт по дуге: по горизонтали ровно, по вертикали с замедлением — сани «садятся» на место перед луной
-  taleTl.fromTo(sleigh, { xPercent: 105 }, { xPercent: 0, duration: 1.5, ease: 'power2.out' }, 0)
-    .fromTo(sleigh, { yPercent: 16, rotation: -6 }, { yPercent: 0, rotation: 0, duration: 1.5, ease: 'sine.out' }, 0)
-    .fromTo('.tale__shade', { opacity: 1 }, { opacity: 0, duration: 0.9, ease: 'power1.inOut' }, 0.7)
-    .fromTo(['.tale__over', '.tale__title'], { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.4, stagger: 0.1 }, 0.9)
-    .fromTo('.tale__story p', { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.3, stagger: 0.18 }, 1.3)
-    .fromTo('.tale__sign', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, 2.0)
-    .to({}, { duration: 0.4 });
-  // Общее небо плавно темнеет к саням: звёзды и отливы гаснут, остаётся ровный тёмно-синий
+  // Звёздное небо остаётся за луной, санями и лентой (её правка); темнеет только перед «Датами и ценами» — за билетами своё звёздное небо
   gsap.fromTo('.space__dark', { opacity: 0 }, {
-    opacity: 1, ease: 'none',
-    scrollTrigger: { trigger: '.tale', start: 'top 95%', end: 'top 5%', scrub: true },
+    opacity: 1, ease: 'none', immediateRender: false,
+    scrollTrigger: { trigger: '.tickets', start: 'top 95%', end: 'top 40%', scrub: true },
   });
   // Луна плавно выдвигается снизу ещё до закрепления — пока уходят последние фото ленты
   gsap.fromTo('.tale__moon', { yPercent: 70, autoAlpha: 0 }, {
@@ -245,34 +253,6 @@ if (reduce || !window.gsap || !window.ScrollTrigger) {
   // Сани в полёте чуть покачиваются — отдельный слой, чтобы не спорить с прокруткой
   gsap.to('.tale__sleigh-sway', { y: -7, rotation: 0.7, duration: 2.2, ease: 'sine.inOut', yoyo: true, repeat: -1 });
 
-  // Снежный след: искры сыплются с задника саней и медленно тают
-  const trail = (() => {
-    const cv = $('.tale__trail'), cx = cv.getContext('2d');
-    let on = false, last = null, parts = [];
-    const fit = () => { const r = cv.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2); cv.width = r.width * d; cv.height = r.height * d; cx.setTransform(d, 0, 0, d, 0, 0); };
-    addEventListener('resize', fit); fit();
-    function tick() {
-      if (!on) return;
-      const box = cv.getBoundingClientRect(), s = sleigh.getBoundingClientRect();
-      // Задник саней: правый край, чуть ниже середины
-      const ex = s.left - box.left + s.width * 0.9, ey = s.top - box.top + s.height * 0.78;
-      const speed = last ? Math.hypot(ex - last[0], ey - last[1]) : 0;
-      last = [ex, ey];
-      const n = 2 + Math.min(10, speed * 0.6);
-      for (let i = 0; i < n; i++) parts.push({ x: ex + (Math.random() - 0.3) * s.width * 0.12, y: ey + (Math.random() - 0.5) * s.height * 0.12,
-        vx: 0.25 + Math.random() * 0.9 + speed * 0.05, vy: (Math.random() - 0.35) * 0.5, r: 0.6 + Math.random() * 2.2, a: 0.5 + Math.random() * 0.5 });
-      cx.clearRect(0, 0, box.width, box.height);
-      parts = parts.filter(p => (p.a -= 0.007) > 0);
-      for (const p of parts) {
-        p.x += p.vx; p.y += p.vy; p.vy += 0.004;
-        cx.globalAlpha = p.a; cx.fillStyle = '#E6F0FA';
-        cx.beginPath(); cx.arc(p.x, p.y, p.r, 0, 7); cx.fill();
-      }
-      if (parts.length > 900) parts.splice(0, parts.length - 900);
-    }
-    gsap.ticker.add(tick);
-    return { active(v) { on = v; if (v) fit(); else { last = null; } } };
-  })();
 
   // ---------- Даты и цены: билет «печатается» сверху вниз, сеансы проступают по очереди,
   // вырезы «пробиваются», линия отрыва прорисовывается точками слева направо ----------
@@ -324,7 +304,7 @@ if (reduce || !window.gsap || !window.ScrollTrigger) {
   // «Билеты», «Купить билет», «Сразу к сценам» — к ленте сцен
   document.querySelectorAll('a[href="#after"]').forEach(a => a.addEventListener('click', e => {
     e.preventDefault();
-    const top = tl.scrollTrigger.end + 2;
+    const top = reelSec.getBoundingClientRect().top + scrollY + 2; // к ленте «Сцены шоу» (теперь она после «О спектакле»)
     if (lenis) lenis.scrollTo(top, { duration: 2.4 }); else window.scrollTo({ top, behavior: 'smooth' });
   }));
 }
