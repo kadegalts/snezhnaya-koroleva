@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Снежная королева. Путь Герды — сказочное шоу</title>
+<meta name="description" content="Учебный концепт сайта новогоднего театрально-циркового шоу «Снежная королева. Путь Герды».">
+<!-- Превью ссылки в Telegram и соцсетях -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Снежная королева. Путь Герды — сказочное шоу">
+<meta property="og:description" content="Учебный концепт сайта новогоднего театрально-циркового шоу: занавес, ночное небо, сцены из спектакля, билеты и вопросы.">
+<meta property="og:url" content="https://kadegalts.github.io/snezhnaya-koroleva/">
+<meta property="og:image" content="https://kadegalts.github.io/snezhnaya-koroleva/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C12.8 8.5 15.5 11.2 22 12C15.5 12.8 12.8 15.5 12 22C11.2 15.5 8.5 12.8 2 12C8.5 11.2 11.2 8.5 12 2Z' fill='%23E8C97A'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="style.css?v=20261106p">
+</head>
+<body>
+
+<header class="header" id="top">
+  <a class="logo" href="#top" aria-label="Наверх">Путь Герды</a>
+  <nav class="nav" aria-label="Главное меню">
+    <a class="link" href="#after">Сцены</a>
+    <a class="link" href="#tickets">Даты и цены</a>
+    <a class="link" href="#faq">Вопросы</a>
+  </nav>
+  <a class="btn btn--sm" href="#tickets">Билеты</a>
+  <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mmenu"><span></span><span></span><span></span></button>
+</header>
+
+<!-- Меню на телефоне (Фигма: «Телефон — меню и шапка»). Текущий раздел — золотом -->
+<div class="mmenu" id="mmenu" role="dialog" aria-modal="true" aria-label="Меню" hidden>
+  <div class="mmenu__top">
+    <span class="logo mmenu__logo">Путь Герды</span>
+    <button class="mmenu__close" type="button" aria-label="Закрыть меню"><span></span><span></span></button>
+  </div>
+  <nav class="mmenu__nav" aria-label="Разделы">
+    <a class="mmenu__link" href="#after" style="--i:0">Сцены<em>вы здесь</em></a>
+    <a class="mmenu__link" href="#tale" style="--i:1">О спектакле<em>вы здесь</em></a>
+    <a class="mmenu__link" href="#tickets" style="--i:2">Даты и цены<em>вы здесь</em></a>
+    <a class="mmenu__link" href="#parents" style="--i:3">Для родителей<em>вы здесь</em></a>
+    <a class="mmenu__link" href="#faq" style="--i:4">Вопросы<em>вы здесь</em></a>
+    <a class="mmenu__link" href="#visit" style="--i:5">Как добраться<em>вы здесь</em></a>
+  </nav>
+  <a class="btn btn--l mmenu__buy mmenu__link--btn" href="#tickets" style="--i:6">Купить билет</a>
+  <div class="mmenu__info" style="--i:7">
+    <p>20 декабря — 8 января · Зимний театр, Москва</p>
+    <p class="mmenu__hours">Касса ежедневно с 10:00 до 21:00</p>
+    <p class="mmenu__phone">+7 (495) 000-00-00</p>
+  </div>
+</div>
+
+<!-- Общее ночное небо за лентой и блоком саней: одно полотно, без швов. К саням оно плавно темнеет -->
+<div class="space" aria-hidden="true"><div class="sky"></div><div class="space__dark"></div></div>
+<!-- Ветер из узорного неба обложки: один непрерывный поток точек от «Даты и цены» до «Для родителей» (рисует main.js) -->
+<div class="windsky" aria-hidden="true"></div>
+
+<main>
+  <!-- Вступление: занавес → дворец → ночное небо → сцены шоу -->
+  <section class="journey" aria-label="Вступление: вход в ледяной дворец">
+    <div class="stage">
+      <img class="scene" src="img/scene.webp" alt="Ледяной дворец на берегу замёрзшего озера, ночь">
+      <div class="veil"></div>
+      <div class="scene-title" aria-hidden="true">
+        <p class="over">Новогоднее шоу · 6+</p>
+        <p class="h-xl">Снежная<br>королева</p>
+        <p class="script script--l">Путь Герды</p>
+      </div>
+      <!-- Ночное небо: поднимается снизу мягким краем и закрывает дворец -->
+      <div class="night" aria-hidden="true"><div class="sky"></div></div>
+
+      <!-- Занавес поверх всего -->
+      <div class="curtain curtain--l" aria-hidden="true"></div>
+      <div class="curtain curtain--r" aria-hidden="true"></div>
+      <img class="valance" src="img/valance.webp" alt="" aria-hidden="true">
+      <div class="closed-title">
+        <p class="over">Новогоднее шоу · 6+</p>
+        <p class="h-hero">Снежная королева</p>
+        <p class="script script--l">Путь Герды</p>
+        <p class="date">20 декабря — 8 января · Зимний театр, Москва</p>
+        <a class="btn btn--l" href="#tickets">Купить билет</a>
+      </div>
+      <a class="skip" href="#after">Сразу к сценам ↓</a>
+      <span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9.5 12 15.5 18 9.5"/></svg></span>
+    </div>
+  </section>
+
+  <!-- Сцены шоу: лента фото едет справа налево при прокрутке -->
+  <section class="stage-reel" id="after" aria-label="Сцены из шоу">
+    <div class="reel__pin">
+      <h2 class="sr-only">Сцены шоу</h2>
+      <div class="reel__track">
+        <figure class="shot" style="--x:0; --y:75; --w:581; --h:333"><img src="img/stage/s2.webp" alt="Воздушная гимнастка на полотнах над сценой — метель" loading="lazy"><figcaption>Танец в метели</figcaption></figure>
+        <figure class="shot" style="--x:89; --y:500; --w:202; --h:262"><img src="img/stage/s1.webp" alt="Снежная королева на ледяном подиуме в луче прожектора" loading="lazy"><figcaption>Холод в луче света</figcaption></figure>
+        <figure class="shot" style="--x:732; --y:267; --w:505; --h:501"><img src="img/stage/s6.webp" alt="Крупный план: грим и ледяная корона Снежной королевы" loading="lazy"><figcaption>Лицо зимы</figcaption></figure>
+        <figure class="shot" style="--x:1357; --y:36; --w:467; --h:268"><img src="img/stage/s5.webp" alt="Кай один на ледяном полу складывает льдинки" loading="lazy"><figcaption>Ледяная мозаика</figcaption></figure>
+        <figure class="shot" style="--x:1585; --y:578; --w:214; --h:260"><img src="img/stage/s3.webp" alt="Герда с красной розой в руках" loading="lazy"><figcaption>Роза, которая помнит лето</figcaption></figure>
+        <figure class="shot" style="--x:1966; --y:475; --w:539; --h:308"><img src="img/stage/s4.webp" alt="Акробат-олень несёт Герду под северным сиянием" loading="lazy"><figcaption>Дорога на север</figcaption></figure>
+        <figure class="shot" style="--x:2189; --y:64; --w:186; --h:230"><img src="img/stage/s8.webp" alt="Финал: Герда обнимает Кая, у их ног роза" loading="lazy"><figcaption>Весна в конце пути</figcaption></figure>
+        <figure class="shot" style="--x:2590; --y:326; --w:463; --h:259"><img src="img/stage/s7.webp" alt="Кордебалет «снежинки» в прыжке" loading="lazy"><figcaption>Снег, который танцует</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- О спектакле: разгорается луна, сбоку выезжают сани Королевы — тенью, перед луной светлеют; слева история сказки -->
+  <section class="tale" id="tale" aria-labelledby="tale-title">
+    <div class="tale__pin">
+      <!-- Сцена в пропорциях макета 1440×900 (кадры 08–11 в Фигме) -->
+      <div class="tale__scene">
+        <div class="tale__moon" aria-hidden="true"><img src="img/tale/moon.webp" alt=""></div>
+        <canvas class="tale__trail" aria-hidden="true"></canvas>
+        <div class="tale__sleigh">
+          <div class="tale__sleigh-sway">
+            <img src="img/tale/sleigh.webp" alt="Снежная королева с Каем летят на ледяных санях, запряжённых белыми конями">
+            <img class="tale__shade" src="img/tale/sleigh.webp" alt="" aria-hidden="true">
+          </div>
+        </div>
+      </div>
+      <div class="tale__text">
+        <p class="over tale__over">О спектакле</p>
+        <h2 class="tale__title" id="tale-title">Сказка в семи <span class="script">историях</span></h2>
+        <div class="tale__story">
+          <p>Злой тролль смастерил зеркало, в котором всё доброе казалось уродливым. Зеркало разбилось, и осколки разлетелись по свету.</p>
+          <p>Один осколок попал мальчику Каю в глаз, другой — в самое сердце. Кай стал холодным, а зимой Снежная королева увезла его в своих санях на край света.</p>
+          <p>Герда пошла искать друга одна — через сад колдуньи, дворец принцессы, лес разбойников и снега Лапландии. Её не остановили ни холод, ни страх.</p>
+          <p>В ледяном чертоге Кай складывал из льдинок слово «Вечность». Герда обняла его — и её слёзы растопили лёд в его сердце.</p>
+        </div>
+        <p class="tale__sign">— Ганс Христиан Андерсен, 1844</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Даты и цены: блок в виде билета (Фигма: «Сайт целиком» → 07 · Даты и цены) -->
+  <section class="tickets" id="tickets" aria-labelledby="tickets-title">
+    <header class="tickets__head">
+      <h2 class="tickets__title" id="tickets-title">Даты и цены</h2>
+      <p class="script tickets__script">выберите вечер</p>
+    </header>
+
+    <div class="ticket">
+      <div class="ticket__main">
+        <div class="ticket__top">
+          <p class="ticket__label">Билет · «Снежная королева. Путь Герды» · ряд, место — на ваш выбор</p>
+          <p class="ticket__no" aria-hidden="true">№ 000 001</p>
+        </div>
+        <ul class="sessions">
+          <li class="session">
+            <p class="session__date">20 декабря</p>
+            <p class="session__time">воскресенье · 12:00 и 16:00</p>
+            <p class="session__price">от 1 500 <span class="rub">₽</span></p>
+            <button class="btn btn--outline session__btn" type="button">Выбрать места</button>
+          </li>
+          <li class="session">
+            <p class="session__date">26 декабря</p>
+            <p class="session__time">суббота · 12:00 и 16:00</p>
+            <span class="session__badge">осталось мало мест</span>
+            <p class="session__price">от 1 500 <span class="rub">₽</span></p>
+            <button class="btn btn--outline session__btn" type="button">Выбрать места</button>
+          </li>
+          <li class="session session--sold">
+            <p class="session__date">27 декабря</p>
+            <p class="session__time">воскресенье · 12:00 и 16:00</p>
+            <p class="session__price">продано</p>
+            <button class="btn btn--outline session__btn" type="button" disabled>Выбрать места</button>
+          </li>
+          <li class="session">
+            <p class="session__date">2 января</p>
+            <p class="session__time">суббота · 12:00, 16:00 и 19:00</p>
+            <p class="session__price">от 1 500 <span class="rub">₽</span></p>
+            <button class="btn btn--outline session__btn" type="button">Выбрать места</button>
+          </li>
+          <li class="session">
+            <p class="session__date">5 января</p>
+            <p class="session__time">вторник · 16:00</p>
+            <p class="session__price">от 1 500 <span class="rub">₽</span></p>
+            <button class="btn btn--outline session__btn" type="button">Выбрать места</button>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Линия отрыва: точки прорисовываются слева направо; вырезы по бокам — настоящие, сквозь них видно небо -->
+      <div class="ticket__tear" aria-hidden="true">
+        <span class="ticket__hole ticket__hole--l"></span>
+        <svg class="ticket__dots" preserveAspectRatio="none"><line x1="0" y1="1.5" x2="100%" y2="1.5"/></svg>
+        <span class="ticket__hole ticket__hole--r"></span>
+      </div>
+
+      <div class="ticket__stub">
+        <ul class="zones">
+          <li class="zone"><p class="zone__name">Галёрка</p><p class="zone__price">от 1 500 <span class="rub">₽</span></p><p class="zone__note">лучший вид на воздушные номера</p></li>
+          <li class="zone"><p class="zone__name">Амфитеатр</p><p class="zone__price">от 2 800 <span class="rub">₽</span></p><p class="zone__note">центр зала, всё на уровне глаз</p></li>
+          <li class="zone"><p class="zone__name">Партер</p><p class="zone__price">от 4 200 <span class="rub">₽</span></p><p class="zone__note">первые ряды — снег долетает</p></li>
+        </ul>
+      </div>
+    </div>
+    <p class="tickets__toast" role="status" aria-live="polite"></p>
+  </section>
+
+  <!-- Для родителей: программка (Фигма: «Сайт целиком» → 08). Рамка — как у билета -->
+  <section class="parents" id="parents" aria-labelledby="parents-title">
+    <p class="parents__ghost" aria-hidden="true">антракт</p>
+    <p class="over parents__over">Антракт</p>
+    <h2 class="parents__title" id="parents-title">Для родителей</h2>
+    <div class="parents__card">
+      <div class="note"><span class="ico ico--star" aria-hidden="true"></span><h3 class="note__title">Возраст</h3><p class="note__text">6+. Малыши до 3 лет — бесплатно, на коленях у взрослого.</p></div>
+      <div class="note"><span class="ico ico--star" aria-hidden="true"></span><h3 class="note__title">Длительность</h3><p class="note__text">1 ч 50 мин, антракт 20 минут.</p></div>
+      <div class="note"><span class="ico ico--star" aria-hidden="true"></span><h3 class="note__title">Приходите заранее</h3><p class="note__text">Гардероб и фотозона с санями открываются за час.</p></div>
+      <div class="note"><span class="ico ico--star" aria-hidden="true"></span><h3 class="note__title">Не страшно</h3><p class="note__text">Королева строгая, но не пугает. Громких хлопков нет.</p></div>
+    </div>
+  </section>
+
+  <!-- Вопросы: механика «Подробностей» pushkin.show (фото слева стоит на месте, справа карточки раскрываются).
+       Своя фишка — ледяные карточки оттаивают: снежинка поворачивается и золотеет, иней тает от неё к краю,
+       ответ проступает из размытия. Фигма: «Сайт целиком» → 09 и раскадровка справа от макета -->
+  <section class="faq" id="faq" aria-labelledby="faq-title">
+    <div class="faq__art" aria-hidden="true"><img src="img/stage/s1.webp" alt="" loading="lazy" width="1120" height="1500"></div>
+    <div class="faq__content">
+      <header class="faq__head">
+        <h2 class="faq__title" id="faq-title">Вопросы</h2>
+        <p class="script faq__script">перед спектаклем</p>
+      </header>
+      <div class="faq__list">
+        <div class="qa is-open">
+          <h3><button class="qa__q" type="button" id="qa1-q" aria-expanded="true" aria-controls="qa1-a"><span>Можно ли прийти с ребёнком младше шести лет?</span><span class="qa__tg" aria-hidden="true"><span class="ico ico--snow"></span></span></button></h3>
+          <div class="qa__a" id="qa1-a" role="region" aria-labelledby="qa1-q"><div class="qa__in"><p>Да, если ребёнок спокойно смотрит спектакль около двух часов. Для детей до 3 лет без отдельного места вход бесплатный.</p></div></div>
+          <span class="qa__frost" aria-hidden="true"></span>
+        </div>
+        <div class="qa">
+          <h3><button class="qa__q" type="button" id="qa2-q" aria-expanded="false" aria-controls="qa2-a"><span>Можно ли вернуть билет?</span><span class="qa__tg" aria-hidden="true"><span class="ico ico--snow"></span></span></button></h3>
+          <div class="qa__a" id="qa2-a" role="region" aria-labelledby="qa2-q" inert><div class="qa__in"><p>Да, до начала спектакля — через ту же площадку, где вы его купили.</p></div></div>
+          <span class="qa__frost" aria-hidden="true"></span>
+        </div>
+        <div class="qa">
+          <h3><button class="qa__q" type="button" id="qa3-q" aria-expanded="false" aria-controls="qa3-a"><span>Есть ли парковка?</span><span class="qa__tg" aria-hidden="true"><span class="ico ico--snow"></span></span></button></h3>
+          <div class="qa__a" id="qa3-a" role="region" aria-labelledby="qa3-q" inert><div class="qa__in"><p>Да, у театра 40 бесплатных мест; в праздники лучше приехать на метро.</p></div></div>
+          <span class="qa__frost" aria-hidden="true"></span>
+        </div>
+        <div class="qa">
+          <h3><button class="qa__q" type="button" id="qa4-q" aria-expanded="false" aria-controls="qa4-a"><span>Можно ли снимать?</span><span class="qa__tg" aria-hidden="true"><span class="ico ico--snow"></span></span></button></h3>
+          <div class="qa__a" id="qa4-a" role="region" aria-labelledby="qa4-q" inert><div class="qa__in"><p>Фото без вспышки — можно. Видео и вспышка мешают артистам на трапеции.</p></div></div>
+          <span class="qa__frost" aria-hidden="true"></span>
+        </div>
+        <div class="qa">
+          <h3><button class="qa__q" type="button" id="qa5-q" aria-expanded="false" aria-controls="qa5-a"><span>Будет ли Дед Мороз?</span><span class="qa__tg" aria-hidden="true"><span class="ico ico--snow"></span></span></button></h3>
+          <div class="qa__a" id="qa5-a" role="region" aria-labelledby="qa5-q" inert><div class="qa__in"><p>Нет, это не ёлка, а сказочное шоу. Зато после спектакля можно сфотографироваться с Королевой.</p></div></div>
+          <span class="qa__frost" aria-hidden="true"></span>
+        </div>
+        <div class="qa">
+          <h3><button class="qa__q" type="button" id="qa6-q" aria-expanded="false" aria-controls="qa6-a"><span>Есть ли гардероб и где оставить коляску?</span><span class="qa__tg" aria-hidden="true"><span class="ico ico--snow"></span></span></button></h3>
+          <div class="qa__a" id="qa6-a" role="region" aria-labelledby="qa6-q" inert><div class="qa__in"><p>Гардероб — в фойе на первом этаже. Коляску можно оставить у входа в зал, за ней присмотрят билетёры.</p></div></div>
+          <span class="qa__frost" aria-hidden="true"></span>
+        </div>
+        <div class="qa">
+          <h3><button class="qa__q" type="button" id="qa7-q" aria-expanded="false" aria-controls="qa7-a"><span>Что можно взять с собой в зал?</span><span class="qa__tg" aria-hidden="true"><span class="ico ico--snow"></span></span></button></h3>
+          <div class="qa__a" id="qa7-a" role="region" aria-labelledby="qa7-q" inert><div class="qa__in"><p>Воду в закрытой бутылке. Еду, воздушные шары и игрушки со звуком лучше оставить в гардеробе — в зале темно и тихо.</p></div></div>
+          <span class="qa__frost" aria-hidden="true"></span>
+        </div>
+        <div class="qa">
+          <h3><button class="qa__q" type="button" id="qa8-q" aria-expanded="false" aria-controls="qa8-a"><span>Где перекусить?</span><span class="qa__tg" aria-hidden="true"><span class="ico ico--snow"></span></span></button></h3>
+          <div class="qa__a" id="qa8-a" role="region" aria-labelledby="qa8-q" inert><div class="qa__in"><p>В фойе работает буфет: горячий шоколад, морс, пирожки и сладости. Он открывается за час до начала и работает в антракт.</p></div></div>
+          <span class="qa__frost" aria-hidden="true"></span>
+        </div>
+        <div class="qa">
+          <h3><button class="qa__q" type="button" id="qa9-q" aria-expanded="false" aria-controls="qa9-a"><span>Есть ли места для зрителей на колясках?</span><span class="qa__tg" aria-hidden="true"><span class="ico ico--snow"></span></span></button></h3>
+          <div class="qa__a" id="qa9-a" role="region" aria-labelledby="qa9-q" inert><div class="qa__in"><p>Да, в партере есть места для зрителей на колясках, до зала можно подняться на лифте. Такие билеты продаются в кассе театра.</p></div></div>
+          <span class="qa__frost" aria-hidden="true"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Как добраться (Фигма: «Сайт целиком» → 10). Карта рисованная: адрес выдуман, настоящая карта показала бы чужое место -->
+  <section class="visit" id="visit" aria-labelledby="visit-title">
+    <div class="visit__palace" aria-hidden="true"></div>
+    <div class="ornament" aria-hidden="true"><span></span><i class="ico ico--snow"></i><span></span></div>
+    <div class="visit__grid">
+      <div class="visit__text">
+        <p class="over visit__over">Как добраться</p>
+        <h2 class="visit__title" id="visit-title">Зимний театр</h2>
+        <p class="visit__addr">Москва, Снежный бульвар, 7<br>метро «Зимняя», 5 минут пешком</p>
+        <a class="btn btn--l" href="#tickets">Купить билет</a>
+      </div>
+      <svg class="visit__map" viewBox="0 0 560 240" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Схема: от метро «Зимняя» 5 минут пешком по Снежному бульвару до Зимнего театра">
+        <defs><clipPath id="map-clip"><rect width="560" height="240" rx="14"/></clipPath></defs>
+        <g clip-path="url(#map-clip)">
+          <rect width="560" height="240" rx="14" fill="#1C2E52"/>
+          <rect x="18" y="16" width="160" height="92" rx="10" fill="#4A6A93" fill-opacity="0.2"/>
+          <g fill="#C9D8EA" fill-opacity="0.28"><circle cx="44" cy="62" r="5"/><circle cx="66" cy="80" r="6"/><circle cx="92" cy="58" r="5"/><circle cx="118" cy="82" r="6"/><circle cx="142" cy="60" r="5"/><circle cx="158" cy="88" r="4"/><circle cx="34" cy="90" r="4"/></g>
+          <path d="M-10 206C120 168 300 240 570 184" stroke="#4A6A93" stroke-opacity="0.55" stroke-width="22" stroke-linecap="round"/>
+          <path d="M210 -10V250" stroke="#C9D8EA" stroke-opacity="0.13" stroke-width="6"/>
+          <path d="M540 -10V175" stroke="#C9D8EA" stroke-opacity="0.13" stroke-width="6"/>
+          <path d="M290 -10L570 96" stroke="#C9D8EA" stroke-opacity="0.11" stroke-width="5"/>
+          <path d="M210 52H570" stroke="#C9D8EA" stroke-opacity="0.09" stroke-width="4"/>
+          <path d="M-10 128H570" stroke="#C9D8EA" stroke-opacity="0.22" stroke-width="12"/>
+          <path class="visit__route" d="M166 120H346L352 114" stroke="#E8C97A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1 7"/>
+          <circle cx="150" cy="128" r="13" fill="#B3263A"/>
+          <circle class="visit__ring" cx="362" cy="102" r="26" stroke="#E8C97A" stroke-opacity="0.35"/>
+          <circle cx="362" cy="102" r="17" fill="#E8C97A"/>
+          <path d="M362 93.667V110.334M354.75 97.8337L369.25 106.167M354.75 106.167L369.25 97.8337M360.333 94.917L362 96.167L363.667 94.917M360.333 109.084L362 107.834L363.667 109.084M356.667 97.0003L356.917 99.0837L355 99.917M367.333 107L367.083 104.917L369 104.084M355 104.084L356.917 104.917L356.667 107M369 99.917L367.083 99.0837L367.333 97.0003" stroke="#0E1A33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <text fill="#F4F1EA" font-family="Golos Text, sans-serif" font-size="14" font-weight="500" x="145" y="132.8">М</text>
+          <text fill="#C9D8EA" fill-opacity="0.9" font-family="Lora, serif" font-size="13" x="118" y="159.3">м. Зимняя</text>
+          <text fill="#F4F1EA" font-family="Prata, serif" font-size="18" x="396" y="93.7">Зимний театр</text>
+          <text fill="#C9D8EA" fill-opacity="0.75" font-family="Lora, serif" font-size="12" x="396" y="112.9">Снежный бульвар, 7</text>
+          <text fill="#E8C97A" fill-opacity="0.95" font-family="Lora, serif" font-size="12" font-style="italic" x="214" y="111.9">5 минут пешком</text>
+          <text fill="#C9D8EA" fill-opacity="0.55" font-family="Lora, serif" font-size="11" letter-spacing="0.08em" x="230" y="151">Снежный бульвар</text>
+          <text fill="#C9D8EA" fill-opacity="0.65" font-family="Lora, serif" font-size="12" font-style="italic" x="30" y="37.9">Зимний сад</text>
+          <text fill="#C9D8EA" fill-opacity="0.5" font-family="Lora, serif" font-size="11" font-style="italic" x="420" y="211">Ледяной канал</text>
+        </g>
+        <rect x="0.5" y="0.5" width="559" height="239" rx="13.5" stroke="#E8C97A"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Подвал (Фигма: «Сайт целиком» → 10 → Подвал). Телефон и почты выдуманы; домен .example зарезервирован для примеров -->
+  <footer class="site-footer">
+    <div class="site-footer__cols">
+      <div class="site-footer__brand">
+        <p class="logo site-footer__logo">Путь Герды</p>
+        <p class="site-footer__about">Новогоднее театрально-цирковое шоу по сказке Ханса Кристиана Андерсена «Снежная королева». 6+</p>
+        <p class="site-footer__small">20 декабря — 8 января · Зимний театр, Москва</p>
+      </div>
+      <nav class="site-footer__col" aria-label="Шоу">
+        <p class="over site-footer__h">Шоу</p>
+        <a class="link" href="#after">Сцены шоу</a>
+        <a class="link" href="#tale">О спектакле</a>
+        <a class="link" href="#tickets">Даты и цены</a>
+        <a class="link" href="#parents">Для родителей</a>
+        <a class="link" href="#faq">Вопросы</a>
+      </nav>
+      <nav class="site-footer__col" aria-label="Зрителям">
+        <p class="over site-footer__h">Зрителям</p>
+        <a class="link" href="#visit">Как добраться</a>
+        <a class="link js-stub" href="#">Подарочные сертификаты</a>
+        <a class="link js-stub" href="#">Группам и школам</a>
+        <a class="link js-stub" href="#">Возврат билетов</a>
+        <a class="link js-stub" href="#">Правила посещения</a>
+      </nav>
+      <div class="site-footer__col">
+        <p class="over site-footer__h">Касса и связь</p>
+        <p class="site-footer__small">Касса театра — ежедневно с 10:00 до 21:00</p>
+        <p class="site-footer__phone">+7 (495) 000-00-00</p>
+        <p class="site-footer__mail">kassa@putgerdy.example</p>
+        <p class="site-footer__small">Группы и школы: group@putgerdy.example</p>
+        <p class="site-footer__small">Пресса: press@putgerdy.example</p>
+        <p class="site-footer__social"><a class="link js-stub" href="#">ВКонтакте</a><a class="link js-stub" href="#">Telegram</a></p>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <p>© 2026 «Путь Герды». Учебный концепт: шоу, театр, адрес, телефоны и цены выдуманы. Сайт не продаёт билеты и не собирает данные.</p>
+      <p class="site-footer__author">Дизайн и вёрстка — Карина Дегальцева</p>
+      <a class="link js-stub" href="#">Политика конфиденциальности</a>
+    </div>
+  </footer>
+</main>
+
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="vendor/lenis.min.js"></script>
+<script src="main.js?v=20261106p"></script>
+</body>
+</html>

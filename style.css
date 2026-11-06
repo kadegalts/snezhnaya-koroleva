@@ -1,0 +1,611 @@
+/* Цвета — UI-кит Фигмы (режим «Ночь») */
+:root {
+  --palette-night: #0E1A33;
+  --palette-deep-blue: #1C2E52;
+  --palette-slate: #4A6A93;
+  --palette-frost: #C9D8EA;
+  --palette-snow: #F4F1EA;
+  --palette-moon: #E8C97A;
+  --palette-lilac: #A69ECF; /* «сирень» из кита */
+  --palette-gold-deep: #9C7A2E;
+  --palette-rose: #B3263A;
+  --palette-rose-dark: #7E1A2A;
+  --palette-rose-deep: #5E1220;
+  --sky-top: #0A1428;    /* ночное небо из макета: верх */
+  --sky-bottom: #13254A; /* ночное небо из макета: низ */
+
+  --pad: clamp(20px, 8.3vw, 120px);
+  /* 1 px макета ленты в Фигме. Коллаж по высоте (от верха «Ледяной мозаики» y36 до низа подписи «Розы» y870 = 834 px)
+     вписан между шапкой и низом экрана, чтобы фото не заходили под меню */
+  --u: calc((100vh - 120px) / 834);
+  --reel-top: 104px;
+  --ease: cubic-bezier(.22, .61, .36, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { overflow-x: clip; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+body {
+  background: var(--palette-night); color: var(--palette-snow);
+  font: 17px/1.55 Lora, Georgia, serif; overflow-x: clip; -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+/* ---------- Типографика: одна подача названия ---------- */
+.h-hero, .h-xl { font-family: Prata, serif; font-weight: 400; }
+.h-hero { font-size: clamp(38px, 6.2vw, 100px); line-height: 1.05; letter-spacing: .02em; }
+.h-xl { font-size: clamp(48px, 6.6vw, 96px); line-height: 1.02; letter-spacing: .01em; }
+.script { font-family: 'Great Vibes', cursive; font-weight: 400; line-height: 1.1; white-space: nowrap; }
+.script--l { font-size: clamp(48px, 5.6vw, 84px); }
+.over { font-size: 15px; letter-spacing: .2em; text-transform: uppercase; margin-bottom: 12px; }
+.lead { font-size: clamp(17px, 1.35vw, 19px); line-height: 1.5; }
+
+/* ---------- Кнопки ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font: 500 17px/1.2 'Golos Text', sans-serif; padding: 14px 28px; border-radius: 999px;
+  background: var(--palette-rose); color: var(--palette-snow); white-space: nowrap;
+  transition: background .3s var(--ease), box-shadow .3s var(--ease), color .3s, border-color .3s, transform .15s;
+}
+.btn:hover { background: var(--palette-rose-dark); box-shadow: 0 0 24px rgba(179, 38, 58, .45); }
+.btn:active { background: var(--palette-rose-deep); transform: scale(.98); }
+.btn:focus-visible { outline: 2px solid var(--palette-frost); outline-offset: 3px; }
+.btn--l { padding: 16px 32px; }
+.btn--sm { padding: 12px 24px; }
+.btn--ghost { background: transparent; color: var(--palette-night); border: 1px solid var(--palette-night); }
+.btn--ghost:hover { background: rgba(14, 26, 51, .08); box-shadow: none; }
+
+/* ---------- Шапка ---------- */
+.header {
+  position: fixed; inset: 0 0 auto; z-index: 50; height: 88px;
+  display: flex; align-items: center; gap: 40px; padding: 0 40px; color: var(--palette-snow);
+  transition: color .5s var(--ease);
+}
+.header::before {
+  content: ''; position: absolute; inset: 0 0 -40px; z-index: -1; pointer-events: none;
+  background: linear-gradient(to bottom, rgba(14, 26, 51, .7), rgba(14, 26, 51, 0));
+  transition: opacity .5s var(--ease);
+}
+.logo { font: 36px/1 'Great Vibes', cursive; color: var(--palette-moon); margin-right: auto; transition: color .5s; }
+.nav { display: flex; gap: 32px; }
+.link { position: relative; padding-bottom: 4px; }
+.link::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: currentColor; transform: scaleX(0); transition: transform .25s var(--ease); }
+.link:hover::after { transform: scaleX(1); }
+
+/* ---------- Вступление ---------- */
+.journey { height: 100vh; }
+.stage { position: relative; height: 100vh; min-height: 560px; overflow: hidden; background: var(--palette-night); }
+.scene { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 68% 50%; will-change: transform; }
+.veil {
+  position: absolute; inset: 0; opacity: 0;
+  background: radial-gradient(ellipse 55% 60% at 22% 42%, rgba(14,26,51,.82), rgba(14,26,51,.45) 45%, transparent 75%);
+}
+.scene-title { position: absolute; left: 12%; top: 50%; transform: translateY(-50%); color: var(--palette-snow); text-shadow: 0 2px 14px rgba(14,26,51,.9); opacity: 0; }
+.scene-title .over { color: var(--palette-frost); }
+.scene-title .script { color: var(--palette-moon); margin: -4px 0 0 22%; }
+/* Ночное небо: тёмная синева, отливы и слегка размытые созвездия (рисует main.js в --stars) */
+.sky {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 42% 46% at 18% 28%, rgba(43, 76, 138, .55), transparent 70%),
+    radial-gradient(ellipse 38% 44% at 82% 72%, rgba(61, 111, 176, .35), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 58% 8%, rgba(28, 46, 82, .7), transparent 70%),
+    linear-gradient(var(--sky-top), var(--sky-bottom));
+}
+.sky::after { content: ''; position: absolute; inset: 0; background: var(--stars, none) center / cover no-repeat; }
+/* Небо поднимается снизу вверх: маска втрое выше экрана, её мягкий край (~65% экрана) едет вверх.
+   Край — часть самого неба, поэтому без полосы на стыке. --m двигает main.js */
+.night {
+  position: absolute; inset: 0; pointer-events: none; will-change: transform; --m: 0px;
+  --mask: linear-gradient(to bottom, transparent 33.3%, rgba(0,0,0,.06) 37%, rgba(0,0,0,.2) 41%, rgba(0,0,0,.42) 45%,
+          rgba(0,0,0,.66) 49%, rgba(0,0,0,.85) 53%, rgba(0,0,0,.96) 57%, #000 60%);
+  -webkit-mask: var(--mask) 0 var(--m) / 100% 300% no-repeat;
+  mask: var(--mask) 0 var(--m) / 100% 300% no-repeat;
+}
+
+/* Занавес: ткань до самого низа */
+.curtain { position: absolute; top: 0; height: 100%; width: calc(56vw + 4px); /* +4px — половины заходят друг на друга, без щели по центру */ background-repeat: no-repeat; background-size: 100% 108%; background-position: center top; }
+.curtain--l { left: -6vw; background-image: url(img/curtain-l.webp); }
+.curtain--r { right: -6vw; background-image: url(img/curtain-r.webp); }
+.valance { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: max(112vw, 1200px); max-width: none; pointer-events: none; }
+.closed-title {
+  position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 120px var(--pad) 60px; color: var(--palette-snow); text-shadow: 0 2px 18px rgba(14,26,51,.8);
+}
+.closed-title .over { color: var(--palette-frost); }
+.closed-title .script { color: var(--palette-moon); margin-top: -4px; }
+.date { margin: 18px 0 24px; font-size: clamp(16px, 1.3vw, 19px); }
+.arrow { position: absolute; bottom: 30px; left: 50%; width: 40px; height: 40px; margin-left: -20px; animation: bob 2.4s ease-in-out infinite; }
+.arrow svg { width: 100%; height: 100%; fill: none; stroke: var(--palette-frost); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+@keyframes bob { 50% { transform: translateY(6px); } }
+.skip { position: absolute; right: 40px; bottom: 34px; font-size: 14px; color: var(--palette-frost); opacity: .75; z-index: 5; }
+.skip:hover { opacity: 1; text-decoration: underline; }
+
+
+/* ---------- Общее небо: закреплено за страницей, лента и блок саней лежат на нём прозрачными ---------- */
+.space { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+.space__dark { position: absolute; inset: 0; background: var(--sky-top); opacity: 0; }
+
+/* ---------- Сцены шоу: горизонтальная лента ---------- */
+/* Лента лежит прямо под вступлением: когда небо закрыло экран, вступление тает, а под ним то же небо с лентой */
+.journey { position: relative; z-index: 2; }
+.stage-reel { position: relative; z-index: 1; margin-top: -100vh; }
+.reel__pin { position: relative; height: 100vh; min-height: 560px; overflow: hidden; display: flex; align-items: center; }
+/* Лента начинается за правым краем экрана — фото выезжают справа.
+   Фото стоят ровно по расстановке из Фигмы (кадр «Лента сцен — расставь фото») и не двигаются друг относительно друга */
+.reel__track { position: relative; z-index: 1; flex: 0 0 auto; height: 100%; width: calc(78vw + 3093 * var(--u) + 8vw); will-change: transform; }
+.shot {
+  position: absolute; left: calc(78vw + var(--x) * var(--u)); top: calc(var(--reel-top) + (var(--y) - 36) * var(--u));
+  width: calc(var(--w) * var(--u)); height: calc(var(--h) * var(--u));
+}
+.shot img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .9s var(--ease); }
+.shot { overflow: visible; }
+.shot > img { box-shadow: 0 28px 70px -22px rgba(5, 10, 22, .75), 0 0 0 1px rgba(201, 216, 234, .08); }
+.shot:hover img { transform: scale(1.03); }
+/* Подпись — её выбор в Фигме: лёгкий курсив цвета «сирень» под фото справа, выступает за край на 40 px */
+.shot figcaption {
+  position: absolute; right: calc(-40 * var(--u)); top: 100%; margin-top: calc(8 * var(--u)); white-space: nowrap; text-align: right;
+  font: italic 500 max(15px, calc(20 * var(--u)))/1.2 'Cormorant Infant', Georgia, serif; letter-spacing: .01em; color: var(--palette-lilac);
+}
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- О спектакле: сани на фоне луны (макет в Фигме — кадры 08–10) ---------- */
+/* Космос из ленты продолжается и плавно уходит в тёмно-синий; блок встаёт сразу за лентой */
+/* Фон блока — общее небо (.space); свечению луны можно выходить вверх, на ленту, поэтому обрезаем только по бокам */
+.tale { position: relative; z-index: 1; }
+.tale__pin { position: relative; z-index: 1; height: 100vh; min-height: 560px; overflow-x: clip; overflow-y: visible; }
+/* Сцена в пропорциях макета 1440×900: все слои в процентах от неё */
+.tale__scene { position: absolute; left: 50%; top: 50%; width: max(100vw, 160vh); aspect-ratio: 1440 / 900; transform: translate(-50%, -50%); pointer-events: none;
+}
+/* Луна на чёрном: режим «осветление» убирает чёрный фон */
+/* Луна с настоящей прозрачностью (свечение сходит на нет само) + широкий мягкий ореол без краёв */
+.tale__moon { position: absolute; left: 41.25%; top: -0.7%; width: 62%; aspect-ratio: 1; }
+.tale__moon::before {
+  content: ''; position: absolute; inset: -18%; border-radius: 50%;
+  background: radial-gradient(circle closest-side, rgba(201, 216, 234, .22), rgba(201, 216, 234, .08) 55%, rgba(201, 216, 234, 0));
+}
+.tale__moon img { position: relative; width: 100%; height: 100%; max-width: none; }
+.tale__trail { position: absolute; inset: 0; width: 100%; height: 100%; }
+/* Сани: место — как в кадре 11; полёт задаёт main.js */
+.tale__sleigh { position: absolute; left: 42.4%; top: 25.1%; width: 56.9%; aspect-ratio: 5504 / 3072; will-change: transform; }
+.tale__sleigh-sway { position: absolute; inset: 0; }
+.tale__sleigh img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; }
+.tale__sleigh img:first-child { filter: drop-shadow(0 0 14px rgba(201, 216, 234, .35)); } /* ледяное свечение */
+/* Тень: та же картинка, почти чёрная; её прозрачность 1 → 0 и есть «свет» */
+.tale__shade { filter: brightness(.07) saturate(.4); opacity: 0; }
+.tale__text { position: absolute; left: var(--pad); top: calc(50% + 40px); transform: translateY(-50%); width: min(440px, 36vw); }
+.tale__over { color: var(--palette-frost); }
+.tale__title { font: 400 clamp(28px, min(3.6vw, 5.4vh), 52px)/1.1 Prata, serif; color: var(--palette-snow); }
+.tale__title .script { display: block; font-size: 1.15em; color: var(--palette-moon); margin: -6px 0 0 34%; }
+.tale__story { margin-top: clamp(10px, 2.2vh, 22px); }
+.tale__story p { font-size: clamp(13.5px, 2.1vh, 17px); line-height: 1.5; color: var(--palette-frost); margin-bottom: clamp(6px, 1.3vh, 14px); }
+.tale__sign { font: 400 clamp(22px, 3.5vh, 30px)/1.2 'Great Vibes', cursive; color: var(--palette-moon); margin: 8px 0 0 27%; white-space: nowrap; }
+
+/* ---------- Даты и цены: билет (Фигма «Сайт целиком» → 07, без надзаголовка «Билетная касса» — её правка 06.11) ---------- */
+/* Фон — общее небо (.space), к этому месту оно уже ровного тёмно-синего цвета */
+.tickets { position: relative; z-index: 1; padding: 120px var(--pad) 140px; --hole: 22px; --gold: var(--palette-moon); --line: var(--palette-slate); }
+.tickets__head { text-align: center; margin-bottom: 30px; }
+.tickets__title { font: 400 clamp(44px, 5.3vw, 76px)/1.1 Prata, serif; letter-spacing: .03em; color: var(--palette-snow); }
+.tickets__script { font-size: clamp(40px, 4.45vw, 64px); color: var(--palette-moon); margin-top: -.12em; }
+
+.ticket { position: relative; max-width: 1140px; margin: 0 auto; }
+/* Две части билета: у каждой свой полукруглый вырез в углах, у стыка — линия отрыва */
+.ticket__main, .ticket__stub { position: relative; background: var(--palette-deep-blue); border: 1px solid var(--gold); }
+.ticket__main {
+  border-bottom: 0; border-radius: 14px 14px 0 0; padding: 34px 50px 52px;
+  -webkit-mask: radial-gradient(circle at 0 100%, #0000 var(--hole), #000 calc(var(--hole) + .5px)) left / 51% 100% no-repeat,
+                radial-gradient(circle at 100% 100%, #0000 var(--hole), #000 calc(var(--hole) + .5px)) right / 51% 100% no-repeat;
+          mask: radial-gradient(circle at 0 100%, #0000 var(--hole), #000 calc(var(--hole) + .5px)) left / 51% 100% no-repeat,
+                radial-gradient(circle at 100% 100%, #0000 var(--hole), #000 calc(var(--hole) + .5px)) right / 51% 100% no-repeat;
+}
+.ticket__stub {
+  border-top: 0; border-radius: 0 0 14px 14px; padding: 52px 66px 64px;
+  -webkit-mask: radial-gradient(circle at 0 0, #0000 var(--hole), #000 calc(var(--hole) + .5px)) left / 51% 100% no-repeat,
+                radial-gradient(circle at 100% 0, #0000 var(--hole), #000 calc(var(--hole) + .5px)) right / 51% 100% no-repeat;
+          mask: radial-gradient(circle at 0 0, #0000 var(--hole), #000 calc(var(--hole) + .5px)) left / 51% 100% no-repeat,
+                radial-gradient(circle at 100% 0, #0000 var(--hole), #000 calc(var(--hole) + .5px)) right / 51% 100% no-repeat;
+}
+.ticket__top { display: flex; justify-content: space-between; gap: 24px; font-size: 15px; line-height: 1.4; letter-spacing: .2em; text-transform: uppercase; }
+.ticket__label { color: var(--gold); }
+.ticket__no { color: var(--palette-frost); white-space: nowrap; }
+
+/* Стык: высота 0, вырезы — золотые кольца поверх настоящих дыр */
+.ticket__tear { position: relative; height: 0; z-index: 2; }
+.ticket__hole { position: absolute; top: calc(-1 * var(--hole)); width: calc(2 * var(--hole)); height: calc(2 * var(--hole)); border: 1px solid var(--gold); border-radius: 50%; }
+.ticket__hole--l { left: calc(-1 * var(--hole)); }
+.ticket__hole--r { right: calc(-1 * var(--hole)); }
+.ticket__dots { position: absolute; left: 40px; right: 40px; top: -1.5px; width: calc(100% - 80px); height: 3px; overflow: visible; }
+.ticket__dots line { stroke: var(--palette-frost); stroke-width: 1.5; stroke-linecap: round; stroke-dasharray: 1 7; opacity: .85; }
+
+/* Строка сеанса (компонент «Строка сеанса» из кита) */
+.sessions { list-style: none; margin-top: 22px; }
+.session {
+  display: grid; grid-template-columns: 220px 1fr auto auto auto; align-items: center; column-gap: 32px;
+  min-height: 80px; padding: 16px 0; border-bottom: 1px solid var(--line);
+}
+.session + .session { margin-top: 32px; }
+.session__date { font: 400 28px/1.25 Prata, serif; letter-spacing: .01em; color: var(--palette-snow); }
+.session__time { color: var(--palette-frost); }
+.session__price { grid-column: 4; font: 400 28px/1.25 Prata, serif; letter-spacing: .01em; color: var(--gold); white-space: nowrap; }
+.session__btn { grid-column: 5; }
+.rub { font-family: Lora, Georgia, serif; } /* в Prata нет знака рубля */
+.session__badge { grid-column: 3; font-size: 14px; line-height: 1.5; padding: 4px 12px; border-radius: 999px; background: var(--palette-rose); color: var(--palette-snow); white-space: nowrap; }
+.session--sold { opacity: .7; }
+.session--sold .session__date, .session--sold .session__price { color: var(--palette-frost); }
+
+/* Контурная кнопка из кита: тонкое золото; наведение — синь и золотой текст */
+.btn--outline { background: transparent; border: 1px solid var(--palette-moon); color: var(--palette-snow); padding: 12px 24px; }
+.btn--outline:hover { background: var(--palette-night); color: var(--palette-moon); box-shadow: 0 0 18px rgba(232, 201, 122, .18); }
+.btn--outline:active { background: var(--palette-night); }
+.btn--outline:disabled { opacity: .35; cursor: default; pointer-events: none; }
+
+/* Цены по зонам — корешок билета */
+.zones { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.zone { display: flex; flex-direction: column; gap: 6px; padding: 24px 28px; border: 1px solid var(--gold); border-radius: 6px; background: var(--palette-deep-blue); }
+.zone__name { font-size: 15px; line-height: 1.4; letter-spacing: .2em; text-transform: uppercase; color: var(--palette-frost); }
+.zone__price { font: 400 28px/1.25 Prata, serif; letter-spacing: .01em; color: var(--gold); }
+.zone__note { font-size: 14px; line-height: 1.5; color: var(--palette-frost); }
+
+/* Сообщение «продажи нет» после нажатия «Выбрать места» */
+.tickets__toast {
+  position: fixed; left: 50%; bottom: 28px; z-index: 60; transform: translate(-50%, 20px); opacity: 0; pointer-events: none;
+  max-width: calc(100vw - 32px); padding: 12px 22px; border-radius: 999px; border: 1px solid rgba(232, 201, 122, .5);
+  background: rgba(14, 26, 51, .92); color: var(--palette-snow); font-size: 15px; text-align: center;
+  transition: opacity .35s var(--ease), transform .35s var(--ease);
+}
+.tickets__toast.is-on { opacity: 1; transform: translate(-50%, 0); }
+
+/* ---------- Ниже ---------- */
+.after { position: relative; z-index: 1; padding: 140px var(--pad); text-align: center; color: var(--palette-frost); background: linear-gradient(var(--sky-top), var(--palette-night) 60%); }
+.footer { display: flex; align-items: center; gap: 40px; padding: 28px var(--pad) 40px; border-top: 1px solid rgba(201, 216, 234, .14); }
+.footer .logo { margin: 0; font-size: 30px; color: var(--palette-moon); }
+.footer small { color: var(--palette-frost); font-size: 14px; opacity: .8; }
+
+/* ---------- Телефон ---------- */
+@media (max-width: 900px) {
+  .nav { display: none; }
+  .header { height: 72px; padding: 0 16px; gap: 16px; }
+  .logo { font-size: 30px; }
+  .skip { right: 16px; }
+  .scene-title { left: var(--pad); right: var(--pad); }
+  .scene-title .script { margin-left: 30px; }
+  .footer { flex-direction: column; align-items: flex-start; gap: 10px; }
+  /* Телефон: сани сверху, история под ними */
+  .tale__scene { top: 64px; left: -53vw; width: 150vw; transform: none; }
+  .tale__text { top: auto; bottom: 3vh; left: var(--pad); right: var(--pad); width: auto; transform: none; }
+  .tale__title { font-size: 30px; }
+  .tale__title .script { margin-left: 40%; }
+  .tale__story { margin-top: 12px; }
+  .tale__story p { font-size: 13.5px; line-height: 1.45; margin-bottom: 6px; }
+  .tale__sign { font-size: 22px; margin: 2px 0 0 12%; }
+
+  /* Билет на телефоне: строка сеанса в два ряда, зоны столбиком */
+  .tickets { padding: 88px 16px 96px; --hole: 14px; }
+  .ticket__main { padding: 24px 20px 36px; }
+  .ticket__stub { padding: 36px 20px 28px; }
+  .ticket__top { flex-direction: column; gap: 6px; font-size: 12px; letter-spacing: .14em; }
+  .sessions { margin-top: 10px; }
+  .session { grid-template-columns: 1fr auto; row-gap: 10px; column-gap: 12px; padding: 18px 0; }
+  .session + .session { margin-top: 0; }
+  .session__date { grid-column: 1; font-size: 24px; }
+  .session__time { grid-column: 1 / -1; grid-row: 2; font-size: 15px; }
+  .session__badge { grid-column: 2; grid-row: 1; justify-self: end; font-size: 13px; }
+  .session__price { grid-column: 1; grid-row: 3; font-size: 24px; }
+  .session__btn { grid-column: 2; grid-row: 3; padding: 10px 18px; font-size: 15px; }
+  .ticket__dots { left: 22px; right: 22px; width: calc(100% - 44px); }
+  .zones { grid-template-columns: 1fr; gap: 12px; }
+  .zone { padding: 18px 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .arrow { animation: none; }
+}
+/* Без анимаций: занавеса нет, ленту листают сами */
+.no-motion .curtain, .no-motion .valance, .no-motion .arrow, .no-motion .skip, .no-motion .night, .no-motion .scene-title { display: none; }
+.no-motion .veil { opacity: 1; }
+.no-motion .stage-reel { margin-top: 0; }
+.no-motion .reel__pin { overflow-x: auto; }
+
+/* ---------- Иконки кита: SVG из Фигмы как маска, цвет задаёт CSS ---------- */
+.ico { display: inline-block; flex: none; background: currentColor; -webkit-mask: center / contain no-repeat; mask: center / contain no-repeat; }
+.ico--star { width: 20px; height: 20px; color: var(--palette-moon); -webkit-mask-image: url(img/icons/star.svg); mask-image: url(img/icons/star.svg); }
+.ico--snow { width: 24px; height: 24px; -webkit-mask-image: url(img/icons/snowflake.svg); mask-image: url(img/icons/snowflake.svg); }
+
+/* ---------- Для родителей (Фигма «Сайт целиком» → 08): рамка как у билета ---------- */
+.parents { position: relative; z-index: 1; padding: 120px var(--pad) 140px; text-align: center; overflow-x: clip; }
+.parents__ghost {
+  position: absolute; left: 50%; top: -40px; transform: translateX(-50%); pointer-events: none; white-space: nowrap;
+  font: 400 clamp(150px, 22vw, 320px)/1.1 'Great Vibes', cursive; color: var(--palette-moon); opacity: .06;
+}
+.parents__over { position: relative; color: var(--palette-frost); margin-bottom: 9px; }
+.parents__title { position: relative; font: 400 clamp(44px, 5.3vw, 76px)/1.1 Prata, serif; letter-spacing: .03em; color: var(--palette-snow); }
+.parents__card {
+  position: relative; max-width: 1280px; margin: 56px auto 0; padding: 68px;
+  display: grid; grid-template-columns: repeat(4, 1fr); column-gap: 40px; row-gap: 40px; text-align: left;
+  background: var(--palette-deep-blue); border: 1px solid var(--palette-moon); border-radius: 14px;
+}
+/* Подсетка: заголовки и тексты всех колонок стоят на одних линиях */
+.note { display: grid; grid-template-rows: subgrid; grid-row: span 3; row-gap: 16px; align-content: start; }
+.note__title { font: 400 28px/1.25 Prata, serif; letter-spacing: .01em; color: var(--palette-snow); }
+.note__text { color: var(--palette-frost); }
+
+/* ---------- Вопросы (Фигма «Сайт целиком» → 09) ---------- */
+.faq {
+  position: relative; z-index: 1; display: grid; grid-template-columns: min(43vw, 620px) minmax(0, 760px);
+  column-gap: 20px; align-items: start; padding: 120px 40px 146px 0;
+}
+/* Фото стоит на месте, пока листаются вопросы; растворяется вправо, вверх и вниз прямо в небо сайта */
+.faq__art {
+  position: sticky; top: 88px; align-self: start; margin-top: -80px; height: min(1118px, calc(100vh - 88px));
+  -webkit-mask: linear-gradient(to right, #000 50%, transparent), linear-gradient(to bottom, transparent, #000 20%, #000 78%, transparent);
+  -webkit-mask-composite: source-in;
+  mask: linear-gradient(to right, #000 50%, transparent), linear-gradient(to bottom, transparent, #000 20%, #000 78%, transparent);
+  mask-composite: intersect;
+}
+.faq__art img { width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 50% 30%; }
+.faq__title { font: 400 clamp(44px, 5.3vw, 76px)/1.1 Prata, serif; letter-spacing: .03em; color: var(--palette-snow); }
+.faq__script { font-size: clamp(40px, 4.45vw, 64px); color: var(--palette-moon); }
+.faq__list { display: grid; gap: 18px; margin-top: 48px; }
+
+/* Карточка: матовое стекло с золотым отсветом в правом верхнем углу; у закрытой — иней */
+@property --melt { syntax: '<length>'; inherits: false; initial-value: 0px; }
+.qa {
+  position: relative; overflow: hidden; border-radius: 14px; border: 1px solid rgba(201, 216, 234, .16);
+  background: radial-gradient(ellipse 85% 120% at 100% 0, rgba(232, 201, 122, .05), transparent 70%), rgba(244, 241, 234, .045);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .27), inset 0 1px rgba(255, 255, 255, .05);
+  transition: border-color .4s var(--ease) .15s, background-color .4s;
+}
+.qa.is-open {
+  border-color: rgba(232, 201, 122, .55);
+  background: radial-gradient(ellipse 85% 120% at 100% 0, rgba(232, 201, 122, .12), transparent 70%), rgba(244, 241, 234, .06);
+}
+.qa h3 { margin: 0; font: inherit; }
+.qa__q {
+  position: relative; z-index: 2; display: flex; align-items: center; gap: 24px; width: 100%; padding: 22px 22px 22px 28px;
+  border: 0; background: none; cursor: pointer; text-align: left; color: rgba(244, 241, 234, .78);
+  font: 400 28px/1.25 Prata, serif; letter-spacing: .01em; transition: color .3s;
+}
+.qa__q > span:first-child { flex: 1; }
+.qa__q:hover, .qa.is-open .qa__q { color: var(--palette-snow); }
+.qa__q:focus-visible { outline: 2px solid var(--palette-frost); outline-offset: -4px; border-radius: 14px; }
+.qa__tg {
+  display: grid; place-items: center; flex: none; width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(255, 255, 255, .08); color: var(--palette-frost); transition: background-color .3s var(--ease), color .3s;
+}
+.qa__q:hover .qa__tg { background: rgba(255, 255, 255, .14); }
+/* Снежинка: оборот (у шестилучевой 60° = исходный вид, поэтому 90° — видно поворот) и золото */
+.qa__tg .ico { transition: transform .5s cubic-bezier(.22, 1, .36, 1); }
+.qa.is-open .qa__tg { background: var(--palette-moon); color: var(--palette-night); }
+.qa.is-open .qa__tg .ico { transform: rotate(-90deg); }
+/* Ответ: высота 0fr → 1fr (как у референса), текст проступает из размытия */
+.qa__a { position: relative; z-index: 2; display: grid; grid-template-rows: 0fr; transition: grid-template-rows .45s cubic-bezier(.22, 1, .36, 1); }
+.qa.is-open .qa__a { grid-template-rows: 1fr; }
+.qa__in { min-height: 0; overflow: hidden; }
+.qa__a p {
+  padding: 0 22px 22px 28px; font-size: 20px; line-height: 1.5; color: var(--palette-frost);
+  opacity: 0; filter: blur(8px); transition: opacity .3s, filter .3s;
+}
+.qa.is-open .qa__a p { opacity: 1; filter: blur(0); transition: opacity .5s .15s, filter .55s .15s; }
+/* Иней: тает кругом от снежинки к краям (радиус маски --melt растёт), при закрытии нарастает обратно */
+.qa__frost {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none; --melt: 0px;
+  background:
+    linear-gradient(180deg, rgba(229, 240, 250, .09) 0%, rgba(229, 240, 250, 0) 35%),
+    linear-gradient(90deg, rgba(229, 240, 250, .16) 0%, rgba(229, 240, 250, 0) 22%, rgba(229, 240, 250, 0) 85%, rgba(229, 240, 250, .1) 100%);
+  -webkit-mask: radial-gradient(circle at calc(100% - 44px) 44px, transparent var(--melt), #000 calc(var(--melt) + 90px));
+          mask: radial-gradient(circle at calc(100% - 44px) 44px, transparent var(--melt), #000 calc(var(--melt) + 90px));
+  transition: --melt .6s cubic-bezier(.4, 0, .2, 1);
+}
+.qa.is-open .qa__frost { --melt: 900px; transition: --melt .7s cubic-bezier(.4, 0, .2, 1) .12s; }
+
+@media (max-width: 900px) {
+  .parents { padding: 88px 16px 96px; }
+  .parents__card { grid-template-columns: 1fr 1fr; padding: 32px 22px; column-gap: 20px; row-gap: 28px; margin-top: 36px; }
+  .note { row-gap: 10px; }
+  .note__title { font-size: 22px; }
+  .note__text { font-size: 15px; }
+  /* Как у референса: на телефоне фото нет, только вопросы */
+  .faq { display: block; padding: 88px 16px 96px; }
+  .faq__art { display: none; }
+  .faq__list { gap: 10px; margin-top: 28px; }
+  .qa__q { font-size: 20px; gap: 14px; padding: 16px 14px 16px 18px; }
+  .qa__tg { width: 38px; height: 38px; }
+  .qa__a p { font-size: 16px; padding: 0 14px 18px 18px; }
+}
+@media (max-width: 520px) {
+  .parents__card { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .qa, .qa__tg, .qa__tg .ico, .qa__a, .qa__a p, .qa__frost { transition: none !important; }
+}
+
+/* ---------- Как добраться (Фигма «Сайт целиком» → 10) ---------- */
+.visit { position: relative; z-index: 1; padding: 80px var(--pad) 70px; overflow-x: clip; }
+/* Орнамент кита: золотые линии тают к краям, в центре снежинка */
+.ornament { display: flex; align-items: center; gap: 16px; width: min(360px, 100%); margin: 0 auto 74px; color: var(--palette-moon); }
+.ornament span { flex: 1; height: 1px; background: linear-gradient(to right, rgba(232, 201, 122, 0), rgba(232, 201, 122, .9)); }
+.ornament span:last-child { background: linear-gradient(to right, rgba(232, 201, 122, .9), rgba(232, 201, 122, 0)); }
+.ornament .ico { width: 22px; height: 22px; }
+.visit__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 560px); column-gap: 40px; align-items: start; max-width: 1200px; margin: 0 auto; }
+.visit__over { color: var(--palette-frost); margin-bottom: 9px; }
+.visit__title { font: 400 clamp(34px, 3.1vw, 44px)/1.15 Prata, serif; letter-spacing: .02em; color: var(--palette-snow); }
+.visit__addr { margin: 19px 0 30px; font-size: 20px; line-height: 1.5; color: var(--palette-frost); }
+.visit__map { width: 100%; height: auto; display: block; }
+/* Пунктир маршрута «идёт» от метро к театру; кольцо вокруг театра мягко дышит */
+.visit__route { animation: walk 1.1s linear infinite; }
+@keyframes walk { to { stroke-dashoffset: -8; } }
+.visit__ring { transform-box: fill-box; transform-origin: center; animation: breathe 3.2s ease-in-out infinite; }
+@keyframes breathe { 50% { transform: scale(1.18); opacity: .35; } }
+
+/* ---------- Подвал (Фигма «Сайт целиком» → 10 → Подвал) ---------- */
+.site-footer { position: relative; z-index: 1; background: var(--sky-top); border-top: 1px solid rgba(74, 106, 147, .45); padding: 72px var(--pad) 48px; }
+.site-footer__cols { display: grid; grid-template-columns: 330px 170px 250px minmax(0, 1fr); gap: 48px; max-width: 1200px; margin: 0 auto; }
+.site-footer__brand, .site-footer__col { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.site-footer__brand { gap: 14px; }
+.site-footer__logo { margin: 0; font-size: 36px; line-height: 1.2; }
+.site-footer__about { color: var(--palette-frost); }
+.site-footer__small { font-size: 14px; line-height: 1.5; color: var(--palette-frost); }
+.site-footer__h { color: var(--palette-moon); margin-bottom: 4px; }
+.site-footer__phone { font: 400 28px/1.25 Prata, serif; letter-spacing: .01em; color: var(--palette-snow); white-space: nowrap; }
+.site-footer__mail { color: var(--palette-frost); }
+.site-footer__social { display: flex; gap: 20px; }
+/* Ссылка кита: золотая линия вырастает из центра */
+.site-footer .link::after { background: var(--palette-moon); }
+.site-footer__bottom {
+  display: flex; align-items: flex-start; gap: 32px; max-width: 1200px; margin: 40px auto 0; padding-top: 40px;
+  border-top: 1px solid rgba(74, 106, 147, .45); font-size: 14px; line-height: 1.5; color: rgba(201, 216, 234, .7);
+}
+.site-footer__bottom > p:first-child { max-width: 520px; }
+.site-footer__author { margin-left: auto; white-space: nowrap; }
+.site-footer__bottom .link { color: var(--palette-snow); white-space: nowrap; font-size: 17px; line-height: 1.3; }
+
+@media (max-width: 1100px) {
+  .site-footer__cols { grid-template-columns: 1fr 1fr; }
+  .site-footer__brand { grid-column: 1 / -1; }
+}
+@media (max-width: 900px) {
+  .visit { padding: 64px 16px 56px; }
+  .ornament { margin-bottom: 48px; }
+  .visit__grid { grid-template-columns: 1fr; row-gap: 36px; }
+  .visit__addr { font-size: 17px; }
+  .site-footer { padding: 56px 16px 36px; }
+  .site-footer__cols { gap: 36px 20px; }
+  .site-footer__col:last-child { grid-column: 1 / -1; }
+  .site-footer__phone { font-size: 24px; }
+  .site-footer__bottom { flex-direction: column; gap: 12px; }
+  .site-footer__author { margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .visit__route, .visit__ring { animation: none; }
+}
+
+/* ---------- Шапка: после вступления плавно прячется при прокрутке вниз и появляется при прокрутке вверх, без подложки (её правка) ---------- */
+.header { transition: color .5s var(--ease), transform .9s cubic-bezier(.45, 0, .2, 1); will-change: transform; }
+/* Уезжают только меню и «Билеты»; название остаётся в углу (её выбор). Пустая полоса шапки не перехватывает клики */
+.header .nav, .header .btn--sm { transition: transform .9s cubic-bezier(.45, 0, .2, 1), opacity .7s ease, background .3s var(--ease), box-shadow .3s var(--ease); }
+.header.is-hidden { pointer-events: none; }
+.header.is-hidden .logo { pointer-events: auto; }
+.header.is-hidden .nav, .header.is-hidden .btn--sm { transform: translateY(-140%); opacity: 0; }
+.header.is-hidden::before { opacity: 0; }
+/* После вступления название чуть меньше и с тенью — читается поверх любого фона */
+.header .logo { transform-origin: 0 50%; transition: color .5s, transform .6s cubic-bezier(.45, 0, .2, 1), text-shadow .6s; }
+.header.is-compact .logo { transform: scale(.78); text-shadow: 0 2px 14px rgba(10, 20, 40, .95), 0 0 2px rgba(10, 20, 40, .6); }
+@media (prefers-reduced-motion: reduce) { .header { transition: none; } }
+
+/* ---------- Звёздное небо за «Даты и цены» и «Для родителей» (завитки убраны по её правке): один слой, не обрывается.
+   Слой лежит под блоками (z-index 0), блоки прозрачные — узор виден по бокам билета и между блоками, не обрываясь ---------- */
+.windsky { position: absolute; left: 0; top: 0; width: 100%; height: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.windsky svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+/* ---------- Дворец за «Зимний театр»: приглушённый, растворяется к краям ---------- */
+.visit__palace {
+  position: absolute; z-index: 0; left: -8vw; top: 10px; width: min(1000px, 70vw); aspect-ratio: 1100 / 614;
+  background: url(img/lower/palace.jpg) center / cover no-repeat; opacity: .26; pointer-events: none;
+  -webkit-mask: radial-gradient(closest-side, #000 30%, transparent); mask: radial-gradient(closest-side, #000 30%, transparent);
+}
+.visit .ornament, .visit__grid { position: relative; z-index: 1; }
+@media (max-width: 900px) {
+  .visit__palace { left: -30vw; top: 40px; width: 160vw; opacity: .22; }
+}
+
+/* ---------- Телефон: бургер и меню на весь экран (Фигма «Телефон — меню и шапка») ---------- */
+.burger { display: none; position: relative; width: 44px; height: 44px; margin-right: -8px; border: 0; background: none; cursor: pointer; color: var(--palette-snow); }
+.burger span { position: absolute; right: 10px; height: 1.5px; border-radius: 2px; background: currentColor; transition: width .3s var(--ease); }
+.burger span:nth-child(1) { top: 15px; width: 22px; }
+.burger span:nth-child(2) { top: 21px; width: 16px; }
+.burger span:nth-child(3) { top: 27px; width: 22px; }
+.burger:hover span:nth-child(2) { width: 22px; }
+.burger:focus-visible, .mmenu__close:focus-visible, .mmenu__link:focus-visible { outline: 2px solid var(--palette-frost); outline-offset: 2px; border-radius: 6px; }
+
+.mmenu {
+  position: fixed; inset: 0; z-index: 70; display: flex; flex-direction: column; padding: 0 16px 32px;
+  background: var(--sky-top); color: var(--palette-snow); overflow-y: auto; overscroll-behavior: contain;
+  clip-path: inset(0 0 100% 0); transition: clip-path .5s cubic-bezier(.65, 0, .35, 1);
+}
+.mmenu::before { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--stars, none) center / cover no-repeat; opacity: .5; }
+.mmenu.is-open { clip-path: inset(0 0 0 0); }
+.mmenu__top { display: flex; align-items: center; justify-content: space-between; height: 72px; flex: none; }
+.mmenu__logo { margin: 0; font-size: 30px; }
+.mmenu__close { position: relative; width: 44px; height: 44px; margin-right: -4px; border-radius: 50%; border: 1px solid rgba(201, 216, 234, .35); background: none; cursor: pointer; }
+.mmenu__close span { position: absolute; left: 13px; top: 21px; width: 17px; height: 1.5px; background: var(--palette-snow); }
+.mmenu__close span:first-child { transform: rotate(45deg); }
+.mmenu__close span:last-child { transform: rotate(-45deg); }
+.mmenu__nav { display: flex; flex-direction: column; margin-top: 32px; }
+.mmenu__link {
+  display: flex; align-items: center; justify-content: space-between; min-height: 60px; border-bottom: 1px solid rgba(74, 106, 147, .4);
+  font: 400 30px/1.15 Prata, serif; color: var(--palette-snow);
+}
+.mmenu__link em { font: 400 13px/1.5 Lora, serif; font-style: normal; color: var(--palette-moon); opacity: 0; }
+.mmenu__link.is-current { color: var(--palette-moon); }
+.mmenu__link.is-current em { opacity: .8; }
+.mmenu__buy { margin-top: 32px; width: 100%; flex: none; }
+.mmenu__info { margin-top: auto; padding-top: 40px; font-size: 14px; line-height: 1.5; color: var(--palette-frost); }
+.mmenu__hours { opacity: .8; margin-top: 4px; }
+.mmenu__phone { font: 400 22px/1.3 Prata, serif; color: var(--palette-snow); margin-top: 6px; }
+/* Пункты проявляются по очереди после того, как опустилась «шторка» */
+.mmenu__link, .mmenu__buy, .mmenu__info { opacity: 0; transform: translateY(12px); transition: opacity .35s ease, transform .45s var(--ease), color .3s; }
+.mmenu.is-open .mmenu__link, .mmenu.is-open .mmenu__buy, .mmenu.is-open .mmenu__info { opacity: 1; transform: none; transition-delay: calc(.25s + var(--i) * .05s); }
+
+/* Активный пункт меню на компьютере — золотом (состояние «Активная» у ссылки в ките) */
+.nav .link.is-current { color: var(--palette-moon); }
+
+@media (max-width: 900px) {
+  .burger { display: block; }
+  .header .btn--sm { padding: 10px 18px; font-size: 15px; }
+  /* Подвал: ссылки в строках 44 px под палец, колонки как в макете */
+  .site-footer__cols { grid-template-columns: 138px minmax(0, 1fr); }
+  .site-footer__col { gap: 0; }
+  .site-footer__col .link { display: flex; align-items: center; min-height: 44px; padding-bottom: 0; font-size: 16px; }
+  .site-footer__col .link::after { bottom: 8px; }
+  .site-footer__col .site-footer__h { margin-bottom: 6px; }
+  .site-footer__col:last-child { gap: 10px; }
+  .site-footer__social .link { min-height: 44px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mmenu, .mmenu__link, .mmenu__buy, .mmenu__info { transition: none; }
+}
+
+/* ---------- Телефон: шторы без растяжения (её правка «вытянутые»). Картинка сохраняет пропорции,
+   лишнее по ширине уходит за край; видна внутренняя часть каждой половины — как в мобильном макете ---------- */
+@media (max-width: 900px) {
+  .curtain { background-size: auto 108%; width: 57vw; } /* половины заходят друг на друга — без щели по центру */
+  .curtain--l { background-position: right top; }
+  .curtain--r { background-position: left top; }
+}
+
+/* ---------- Телефон: компактнее «Даты и цены» и «Для родителей» (её правка «вытянутые и длинные») ---------- */
+@media (max-width: 900px) {
+  .tickets { padding: 72px 16px 72px; }
+  .tickets__head { margin-bottom: 22px; }
+  .ticket__main { padding: 20px 18px 24px; }
+  .ticket__top { font-size: 11px; }
+  /* Сеанс в две строки: слева дата и время, справа цена и кнопка */
+  .session { grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto; column-gap: 12px; row-gap: 2px; padding: 14px 0; align-items: center; }
+  .session__date { grid-column: 1; grid-row: 1; font-size: 21px; }
+  .session__time { grid-column: 1; grid-row: 2; font-size: 13.5px; line-height: 1.4; }
+  .session__price { grid-column: 2; grid-row: 1; justify-self: end; font-size: 20px; }
+  .session__btn { grid-column: 2; grid-row: 2 / span 2; justify-self: end; align-self: start; margin-top: 4px; padding: 7px 14px; font-size: 14px; }
+  .session__badge { grid-column: 1; grid-row: 3; justify-self: start; margin-top: 6px; padding: 2px 10px; font-size: 12px; }
+  /* Зоны цен — строки вместо карточек */
+  .ticket__stub { padding: 24px 18px 14px; }
+  .zones { gap: 0; }
+  .zone { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; row-gap: 0; padding: 12px 0; border: 0; border-bottom: 1px solid rgba(232, 201, 122, .22); border-radius: 0; background: none; }
+  .zone:last-child { border-bottom: 0; }
+  .zone__name { grid-column: 1; grid-row: 1; font-size: 13px; }
+  .zone__price { grid-column: 2; grid-row: 1; font-size: 20px; }
+  .zone__note { grid-column: 1 / -1; grid-row: 2; font-size: 13px; }
+
+  /* Для родителей: сетка 2 × 2 */
+  .parents { padding: 72px 16px 72px; }
+  .parents__card { grid-template-columns: 1fr 1fr; padding: 24px 18px; column-gap: 16px; row-gap: 22px; margin-top: 28px; }
+  .note { row-gap: 6px; }
+  .note .ico--star { width: 16px; height: 16px; }
+  .note__title { font-size: 18px; line-height: 1.2; }
+  .note__text { font-size: 14px; line-height: 1.45; }
+}
+@media (max-width: 520px) {
+  .parents__card { grid-template-columns: 1fr 1fr; }
+}
